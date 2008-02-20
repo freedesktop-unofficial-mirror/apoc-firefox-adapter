@@ -1,0 +1,63 @@
+#*************************************************************************
+#*
+#* $RCSfile: Makefile.in,v $
+#*
+#* Description: 
+#*
+#* Last change: $Date: 2006/10/30 03:23:52 $ $Revision: 1.1.1.1 $
+#*
+#* Copyright 2003 Sun Microsystems, Inc. All rights reserved. Use of this 
+#* product is subject to license terms. 
+#*
+#*************************************************************************
+
+DEPTH       = ../..
+topsrcdir   = @top_srcdir@
+srcdir      = @srcdir@
+VPATH       = @srcdir@
+
+include $(DEPTH)/config/autoconf.mk
+
+MODULE      = apoc
+LIBRARY_NAME    = mozapoc
+SHORT_LIBNAME   = mozapoc
+EXPORT_LIBRARY  = 1
+IS_COMPONENT    = 1
+MODULE_NAME = mozApocModule
+MOZILLA_INTERNAL_API = 1
+REQUIRES    = xpcom \
+          string \
+          expat \
+          pref \
+          $(NULL)
+
+CPPSRCS     = \
+        mozApocModule.cpp \
+        mozApocPrefService.cpp \
+        mozApocPrefBranch.cpp \
+        mozApocPolicyData.cpp \
+        mozApocPolicyModel.cpp \
+        mozApocPolicyModelBuilder.cpp \
+        mozApocPolicyModelFromDOM.cpp \
+        mozApocPolicyNodeData.cpp \
+        mozApocPolicyNodeDOMData.cpp \
+        mozApocPolicyModelFromXML.cpp \
+        mozApocPolicyComponentData.cpp \
+        mozApocPolicyComponentDOMData.cpp \
+        mozApocSaxWrapper.cpp \
+        mozApocPolicyBackend.cpp \
+        mozApocNotificationImpl.cpp \
+        mozApocPathParser.cpp \
+        mozApocStringList.cpp \
+        mozApocPAPI.cpp \
+        $(NULL)
+
+DEFINES		+= -DXML_DTD -DXML_UNICODE
+
+SHARED_LIBRARY_LIBS = \
+		$(DIST)/lib/$(LIB_PREFIX)expat_s.$(LIB_SUFFIX) \
+		$(NULL)
+
+EXTRA_DSO_LDOPTS = $(MOZ_COMPONENT_LIBS) \
+
+include $(topsrcdir)/config/rules.mk
